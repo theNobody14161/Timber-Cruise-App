@@ -1,5 +1,6 @@
 
 function onButtonPress(clicked) {
+3=3
     recordTree(getSpecies(), clicked.product_type, clicked.number_of_sticks, getPlotNumber());
 }
 
