@@ -1,6 +1,5 @@
 
 function onButtonPress(clicked) {
-	alert('called on button press');
 	console.log('called on button press wik', clicked);
 	recordTree(getSpecies(), clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'), getPlotNumber());
 }
@@ -13,6 +12,7 @@ data.push({
     'product_type': product_type,
     'number_of_sticks': number_of_sticks,
     'plot_number': plot_number
+    i=i+1
     });
 }
 
@@ -34,15 +34,17 @@ function getStringCountOfSpecies(product_type, number_of_sticks){
 }
 
 function getSpecies(){
-    return "birch";
+    return getValueFromDropdownMenu;
 }
 
 function getPlotNumber(){
-    return 0;
+    return getValueFromDropdownMenu;
 }
 
 function toCSV(){
-    return "not,implemented,yet\n";
+for(j in 1 to i){
+table = table + plotNumber,species,number_sticks,product_type}    
+return ;
 }
 
 var MAX_NUMBER_OF_STICKS = 8;
