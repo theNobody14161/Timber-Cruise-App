@@ -4,6 +4,7 @@ function onButtonPress(clicked) {
 	recordTree(getSpecies(), clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'), getPlotNumber());
 }
 
+var speciesList
 var data= [];
 function recordTree(tree_species, product_type, number_of_sticks, plot_number) {
 // add some storage stuff
@@ -11,26 +12,32 @@ data.push({
     'tree_species': tree_species,
     'product_type': product_type,
     'number_of_sticks': number_of_sticks,
-    'plot_number': plot_number
-    i=i+1
+    'plot_number': plot_number,
+    'count': count
     });
 }
 
-function getStringCountOfSpecies(product_type, number_of_sticks){
-    var map_of_species_to_counts = {};
+function getIndexofRecordChange(product_type, number_of_sticks, tree_species){
+    var index=data.length+1;
     for(var i = 0; i < data.length; ++i){
         if (data[i].product_type == product_type &&
-        data[i].number_of_sticks == number_of_sticks){
-        // TODO: worry about initial case (? +1 = what?)
-            var old_count = map_of_species_to_counts[data[i].tree_species];
-            if (typeof oldcount === 'undefined'){
-                oldcount = 0;
+        data[i].number_of_sticks == number_of_sticks &&
+        data[i].tree_species == tree_species){
+        index=i;
             }
-            map_of_species_to_counts[data[i].tree_species] = old_count + 1;
         }
     }
-    // TODO: make this look more pretty/readable
-    return JSON.stringify(map_of_species_to_counts);
+    return index;
+}
+
+function buttonText(product_type, number_of_sticks){
+var outext=""
+    for(var i = 0; i<speciesList.length; ++i){
+       var q = getIndexofRecordChange(product_type, number_of_sticks, speciesList[i])
+       if(q != data.length+1){
+          outext += data[q].tree_species + " " + data[q].count + "\n"
+          }
+    }
 }
 
 function getSpecies(){
@@ -42,8 +49,8 @@ function getPlotNumber(){
 }
 
 function toCSV(){
-for(j in 1 to i){
-table = table + plotNumber,species,number_sticks,product_type}    
+for(j in 1 to data.length){
+table += data[i].plot_number + "," + data[i].tree_species + "," + data[i].number_of_sticks + "," + data.product_type + "," + data.count +"\n"}    
 return ;
 }
 
@@ -54,7 +61,9 @@ function generateButtons(){
     for(var i = 0; i < MAX_NUMBER_OF_STICKS; ++i){
         output_html += "<tr>";
         for(var j = 0; j < PRODUCT_TYPES.length; ++j) {
-            output_html += '<td onclick="onButtonPress(this)" number_of_sticks="' + i + '" product_type="' + PRODUCT_TYPES[j] +'"> ' + getStringCountOfSpecies(PRODUCT_TYPES[j], i, getPlotNumber()) + '</td>';
+        makebutton()
+        textonbutton=buttonText(PRODUCT_TYPES[j],i)
+            output_html += '<td onclick="onButtonPress(this)" number_of_sticks="' + i + '" product_type="' + PRODUCT_TYPES[j] +'"> ' +  + '</td>';
         }
         output_html += "</tr>\n";
     }
@@ -67,3 +76,4 @@ function fillInTable(id) {
 	var div = document.getElementById(id);
 	div.innerHTML = generateButtons();
 }
+
