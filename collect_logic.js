@@ -5,40 +5,9 @@ function onButtonPress(clicked) {
 }
 
 var speciesList
+var plotList
 var data= [];
-function recordTree(tree_species, product_type, number_of_sticks, plot_number) {
-// add some storage stuff
-data.push({
-    'tree_species': tree_species,
-    'product_type': product_type,
-    'number_of_sticks': number_of_sticks,
-    'plot_number': plot_number,
-    'count': count
-    });
-}
 
-function getIndexofRecordChange(product_type, number_of_sticks, tree_species){
-    var index=data.length+1;
-    for(var i = 0; i < data.length; ++i){
-        if (data[i].product_type == product_type &&
-        data[i].number_of_sticks == number_of_sticks &&
-        data[i].tree_species == tree_species){
-        index=i;
-            }
-        }
-    }
-    return index;
-}
-
-function buttonText(product_type, number_of_sticks){
-var outext=""
-    for(var i = 0; i<speciesList.length; ++i){
-       var q = getIndexofRecordChange(product_type, number_of_sticks, speciesList[i])
-       if(q != data.length+1){
-          outext += data[q].tree_species + " " + data[q].count + "\n"
-          }
-    }
-}
 
 function getSpecies(){
     return getValueFromDropdownMenu;
@@ -48,14 +17,18 @@ function getPlotNumber(){
     return getValueFromDropdownMenu;
 }
 
-function toCSV(){
-for(j in 1 to data.length){
-table += data[i].plot_number + "," + data[i].tree_species + "," + data[i].number_of_sticks + "," + data.product_type + "," + data.count +"\n"}    
-return ;
-}
 
 var MAX_NUMBER_OF_STICKS = 8;
 var PRODUCT_TYPES = ['sawlogs', 'pulpsticks'];
+
+function editData(plot,productType,numStick,species,change){
+	data[plot][productType][numStick][species][count] += change
+}
+
+function buttonText(productType,NumStick){
+	print(str(data[getPlotNumber()][productType][NumStick]))
+}
+
 function generateButtons(){
     var output_html = "<table>";
     for(var i = 0; i < MAX_NUMBER_OF_STICKS; ++i){
@@ -69,6 +42,29 @@ function generateButtons(){
     }
 	 output_html += "</html>";
 	 return output_html;
+}
+
+function leftClickButton(buttonproduct,buttonumStick){
+	editData(getPlotNumer(),buttonproduct,buttonnumstick,getSpecies(),1)
+}
+
+function rightClickButton(buttonproduct,buttonumStick){
+	editData(getPlotNumer(),buttonproduct,buttonnumstick,getSpecies(),-1)
+}
+
+function makeCSV(){
+	var comma = ","
+	var outext=print("Plot, Product type, Number of sticks, Species, Count")
+	for(a in data){
+    	for (b in data[a]){
+        	for (c in data[a][b]){
+            	for (d in data[a][b][c]){
+              	  outext += print(str(a)+comma+str(b)+comma+str(c)+comma+str(d) + comma+ str(data[a][b][c][d]))
+               	}
+        	}
+   	}
+	}
+	return(outext)
 }
 
 function fillInTable(id) {
