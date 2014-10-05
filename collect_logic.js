@@ -4,8 +4,8 @@ function onButtonPress(clicked) {
 	recordTree(getSpecies(), clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'), getPlotNumber());
 }
 
-var speciesList
-var plotList
+var speciesList;
+var plotList;
 var data= [];
 
 
@@ -22,7 +22,7 @@ var MAX_NUMBER_OF_STICKS = 8;
 var PRODUCT_TYPES = ['sawlogs', 'pulpsticks'];
 
 function editData(plot,productType,numStick,species,change){
-	data[plot][productType][numStick][species][count] += change
+	data[plot][productType][numStick][species][count] += change;
 }
 
 function buttonText(productType,NumStick){
@@ -45,11 +45,11 @@ function generateButtons(){
 }
 
 function leftClickButton(buttonproduct,buttonumStick){
-	editData(getPlotNumer(),buttonproduct,buttonnumstick,getSpecies(),1)
+	editData(getPlotNumer(),buttonproduct,buttonnumstick,getSpecies(),1);
 }
 
 function rightClickButton(buttonproduct,buttonumStick){
-	editData(getPlotNumer(),buttonproduct,buttonnumstick,getSpecies(),-1)
+	editData(getPlotNumer(),buttonproduct,buttonnumstick,getSpecies(),-1);
 }
 
 function makeCSV(){
