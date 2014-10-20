@@ -1,10 +1,14 @@
 
 function onButtonPress(e) {
 	var clicked = e.target;
+	leftClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
+}
+function onOButtonPress(e) {
+	var clicked = e.target;
 	rightClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
 }
 
-var speciesList = ['aspen', 'dead oak', 'red maple sugar', 'green maple', 'orange apple']
+var speciesList = ['AS', 'RO', 'BO', 'SM', 'RM','HM','SM','RP','WP','WS','BS','WO','BH','AB','PB','JP','BW','GA','BA']
 var plotMax = 3;
 var data= {};
 
@@ -61,7 +65,7 @@ function generateButtons(){
 		output_html += "<tr style='border: 1px solid black; border-collapse: collapse;'>";
 		for(var j = 0; j < PRODUCT_TYPES.length; ++j) {
 			text_on_button = buttonText(PRODUCT_TYPES[j],i)
-			output_html += '<td onclick="onButtonPress(event)" number_of_sticks="' + i + '" product_type="' + PRODUCT_TYPES[j] +'" style="border: 1px solid black; border-collapse: collapse;"> ' + text_on_button + '</td>';
+			output_html += '<td onclick="onButtonPress(event)" oncontextmenu="onOButtonPress(event)" number_of_sticks="' + i + '" product_type="' + PRODUCT_TYPES[j] +'" style="border: 1px solid black; border-collapse: collapse;"> ' + text_on_button + '</td>';
 	}
 		output_html += "</tr>\n";
 	}
