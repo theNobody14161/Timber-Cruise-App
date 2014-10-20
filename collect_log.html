@@ -5,9 +5,9 @@
 		<title></title>
 		<script type="text/javascript" src="collect_logic.js"></script>
 	</head>
-	<body onload="initData()">
+	<body onload="refreshData()">
 		<form action="">
-			<select name="plot" id='plot_menu'>
+			<select name="plot" id='plot_menu' onchange='refreshData()'>
 			</select>
 			<select name="species" id='species_menu'>
 			</select>

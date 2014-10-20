@@ -4,17 +4,25 @@ function onButtonPress(e) {
 	rightClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
 }
 
-var speciesList = ['aspen']
-var plotMax = 1;
+var speciesList = ['aspen', 'dead oak', 'red maple sugar', 'green maple', 'orange apple']
+var plotMax = 3;
 var data= {};
 
 
 function getSpecies(){
-	return "aspen";
+	var obj = document.getElementById('species_menu');
+	if (obj.selectedIndex == -1){ //nothing selected
+		return speciesList[0];
+	}
+	return obj.options[obj.selectedIndex].value;
 }
 
 function getPlotNumber(){
-	return 1;
+	var obj = document.getElementById('plot_menu');
+	if (obj.selectedIndex == -1){ // nothing selected
+		return "1";
+	}
+	return obj.options[obj.selectedIndex].value;
 }
 
 
@@ -35,7 +43,7 @@ function editData(plot,productType,numStick,species,change){
 		data[plot][productType][numStick][species] = 0;
 	}
 	data[plot][productType][numStick][species] += change;
-	initData();
+	refreshData();
 }
 
 function buttonText(productType,numStick){
@@ -54,7 +62,6 @@ function generateButtons(){
 		for(var j = 0; j < PRODUCT_TYPES.length; ++j) {
 			text_on_button = buttonText(PRODUCT_TYPES[j],i)
 			output_html += '<td onclick="onButtonPress(event)" number_of_sticks="' + i + '" product_type="' + PRODUCT_TYPES[j] +'" style="border: 1px solid black; border-collapse: collapse;"> ' + text_on_button + '</td>';
-			alert(output_html);
 	}
 		output_html += "</tr>\n";
 	}
@@ -86,22 +93,32 @@ function makeCSV(){
 }
 
 function generatePlotMenu(){
+	var selected = getPlotNumber();
 	var out = "";
 	for (var i = 1; i <= plotMax; ++i){
-		out += "<option value='"+i+"'>"+i+"</option>";
+		if (i == selected){
+			out += "<option value='"+i+"' selected='True'>"+i+"</option>";
+		} else {
+			out += "<option value='"+i+"'>"+i+"</option>";
+		}
 	}
 	return out;
 }
 
 function generateSpeciesMenu(){
+	var selected = getSpecies();
 	var out = "";
 	for (var i = 0; i < speciesList.length; ++i){
-		out += "<option value='"+speciesList[i]+"'>"+speciesList[i]+"</option>";
+		if(speciesList[i] == selected){
+			out += "<option value='"+speciesList[i]+"' selected='True'>"+speciesList[i]+"</option>";
+		} else {
+			out += "<option value='"+speciesList[i]+"'>"+speciesList[i]+"</option>";
+		}
 	}
 	return out;
 }
 
-function initData(){
+function refreshData(){
 	document.getElementById('click_table').innerHTML = generateButtons();
 	document.getElementById('plot_menu').innerHTML = generatePlotMenu();
 	document.getElementById('species_menu').innerHTML = generateSpeciesMenu();
