@@ -2,10 +2,12 @@
 function onButtonPress(e) {
 	var clicked = e.target;
 	leftClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
+	localStorage.setItem(var storeData,data);
 }
 function onOButtonPress(e) {
 	var clicked = e.target;
 	rightClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
+	localStorage.setItem(var storeData,data);
 }
 
 var speciesList = ['AS', 'RO', 'BO', 'SM', 'RM','HM','SM','RP','WP','WS','BS','WO','BH','AB','PB','JP','BW','GA','BA']
