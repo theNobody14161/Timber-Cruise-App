@@ -5,7 +5,13 @@
 		<title></title>
 		<script type="text/javascript" src="collect_logic.js"></script>
 	</head>
-	<body onload="fillInTable('click_table')">
+	<body onload="initData()">
+		<form action="">
+			<select name="plot" id='plot_menu'>
+			</select>
+			<select name="species" id='species_menu'>
+			</select>
+		</form>
 		<div id="click_table">
 		</div>
 	</body>
