@@ -1,0 +1,5 @@
+1) make button to add new plot
+2) find convienient way to extract csv; so far the options I'm looking at are;
+  1)having the page email you a text/csv file 
+  2)having a button take you to an html page that is the csv file
+  -brainstorming other options, need to find out which is preferable
