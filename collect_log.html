@@ -11,8 +11,14 @@
 			</select>
 			<select name="species" id='species_menu'>
 			</select>
+			<button onclick="addPlot()">
+			New Plot 
+			</button>
 			<button onclick="download('data.csv',makeCSV())">
-			Download as CSV 
+			CSV
+			</button>
+			<button onclick="localStorage.clear()">
+			Clear 
 			</button>
 		</form>
 		<div id="click_table">

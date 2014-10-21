@@ -11,8 +11,13 @@ function onRButtonPress(e) {
 }
 
 var speciesList = ['AS', 'RO', 'BO', 'SM', 'RM','HM','SM','RP','WP','WS','BS','WO','BH','AB','PB','JP','BW','GA','BA'];
-var plotMax = 3;
+var plotMax = 1;
 var data= JSON.parse(localStorage.getItem('storeData'));
+
+function addPlot(){
+plotMax = plotMax + 1;
+refreshData();
+}
 
 
 function getSpecies(){
@@ -141,3 +146,5 @@ function download(filename, outext) {
   pom.setAttribute('download', filename);
   pom.click();
 }
+
+
