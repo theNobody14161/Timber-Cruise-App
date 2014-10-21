@@ -2,17 +2,15 @@
 function onButtonPress(e) {
 	var clicked = e.target;
 	leftClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
-	localStorage.setItem(var storeData,data);
 }
 function onOButtonPress(e) {
 	var clicked = e.target;
 	rightClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
-	localStorage.setItem(var storeData,data);
 }
 
-var speciesList = ['AS', 'RO', 'BO', 'SM', 'RM','HM','SM','RP','WP','WS','BS','WO','BH','AB','PB','JP','BW','GA','BA']
+var speciesList = ['AS', 'RO', 'BO', 'SM', 'RM','HM','SM','RP','WP','WS','BS','WO','BH','AB','PB','JP','BW','GA','BA'];
 var plotMax = 3;
-var data= {};
+var data= JSON.parse(localStorage.getItem('storeData'));
 
 
 function getSpecies(){
@@ -49,6 +47,7 @@ function editData(plot,productType,numStick,species,change){
 		data[plot][productType][numStick][species] = 0;
 	}
 	data[plot][productType][numStick][species] += change;
+	localStorage.setItem('storeData',JSON.stringify(data));
 	refreshData();
 }
 
@@ -63,7 +62,7 @@ function buttonText(productType,numStick){
 
 function generateButtons(){
 	var output_html = "<table style='border: 1px solid black; border-collapse: collapse;'>";
-	for(var i = 0; i < MAX_NUMBER_OF_STICKS; ++i){
+	for(var i = 1; i < MAX_NUMBER_OF_STICKS+1; ++i){
 		output_html += "<tr style='border: 1px solid black; border-collapse: collapse;'>";
 		for(var j = 0; j < PRODUCT_TYPES.length; ++j) {
 			text_on_button = buttonText(PRODUCT_TYPES[j],i)
@@ -90,7 +89,7 @@ function makeCSV(){
 		for (b in data[a]){
 			for (c in data[a][b]){
 				for (d in data[a][b][c]){
-					outext += a+comma+b+comma+c+comma+d+comma+data[a][b][c][d];
+					outext += "\n"+a+comma+b+comma+c+comma+d+comma+data[a][b][c][d];
 				}
 			}
 		}
@@ -125,7 +124,18 @@ function generateSpeciesMenu(){
 }
 
 function refreshData(){
+	data= JSON.parse(localStorage.getItem('storeData'));
+	    if (data == null){
+        data = {}
+        }
 	document.getElementById('click_table').innerHTML = generateButtons();
 	document.getElementById('plot_menu').innerHTML = generatePlotMenu();
 	document.getElementById('species_menu').innerHTML = generateSpeciesMenu();
+}
+
+function download(filename, outext) {
+  var pom = document.createElement('a');
+  pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(outext));
+  pom.setAttribute('download', filename);
+  pom.click();
 }
