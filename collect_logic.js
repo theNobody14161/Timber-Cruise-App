@@ -1,10 +1,12 @@
 
-function onButtonPress(e) {
+function onLButtonPress(e) {
 	var clicked = e.target;
+	e.preventDefault();
 	leftClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
 }
-function onOButtonPress(e) {
+function onRButtonPress(e) {
 	var clicked = e.target;
+	e.preventDefault();
 	rightClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
 }
 
@@ -66,7 +68,7 @@ function generateButtons(){
 		output_html += "<tr style='border: 1px solid black; border-collapse: collapse;'>";
 		for(var j = 0; j < PRODUCT_TYPES.length; ++j) {
 			text_on_button = buttonText(PRODUCT_TYPES[j],i)
-			output_html += '<td onclick="onButtonPress(event)" oncontextmenu="onOButtonPress(event)" number_of_sticks="' + i + '" product_type="' + PRODUCT_TYPES[j] +'" style="border: 1px solid black; border-collapse: collapse;"> ' + text_on_button + '</td>';
+			output_html += '<td onclick="onLButtonPress(event)" oncontextmenu="onRButtonPress(event)" number_of_sticks="' + i + '" product_type="' + PRODUCT_TYPES[j] +'" style="border: 1px solid black; border-collapse: collapse;"> ' + text_on_button + '</td>';
 	}
 		output_html += "</tr>\n";
 	}
