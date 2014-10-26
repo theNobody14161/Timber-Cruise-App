@@ -11,12 +11,15 @@ function onRButtonPress(e) {
 }
 
 var speciesList = ['AS', 'RO', 'BO', 'SM', 'RM','HM','SM','RP','WP','WS','BS','WO','BH','AB','PB','JP','BW','GA','BA'];
-var plotMax = 1;
+var plotMax=localStorage.getItem('pm');
+if(plotMax == undefined){
+	plotMax=1;
+}
+
 var data= JSON.parse(localStorage.getItem('storeData'));
 
 function addPlot(){
-plotMax = plotMax + 1;
-refreshData();
+	localStorage.setItem('pm',plotMax+1);
 }
 
 
