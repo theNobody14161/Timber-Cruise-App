@@ -11,7 +11,7 @@ function onRButtonPress(e) {
 }
 
 var speciesList = ['AS', 'RO', 'BO', 'SM', 'RM','HM','SM','RP','WP','WS','BS','WO','BH','AB','PB','JP','BW','GA','BA'];
-var plotMax=localStorage.getItem('pm');
+var plotMax=JSON.parse(localStorage.getItem('pm'));
 if(plotMax == undefined){
 	plotMax=1;
 }
@@ -19,7 +19,7 @@ if(plotMax == undefined){
 var data= JSON.parse(localStorage.getItem('storeData'));
 
 function addPlot(){
-	localStorage.setItem('pm',plotMax+1);
+	localStorage.setItem('pm',JSON.stringify(plotMax+1));
 }
 
 
@@ -72,11 +72,22 @@ function buttonText(productType,numStick){
 
 function generateButtons(){
 	var output_html = "<table style='border: 1px solid black; border-collapse: collapse;'>";
-	for(var i = 1; i < MAX_NUMBER_OF_STICKS+1; ++i){
+	for(var i = 0; i < MAX_NUMBER_OF_STICKS+1; ++i){
 		output_html += "<tr style='border: 1px solid black; border-collapse: collapse;'>";
-		for(var j = 0; j < PRODUCT_TYPES.length; ++j) {
-			text_on_button = buttonText(PRODUCT_TYPES[j],i)
-			output_html += '<td onclick="onLButtonPress(event)" oncontextmenu="onRButtonPress(event)" number_of_sticks="' + i + '" product_type="' + PRODUCT_TYPES[j] +'" style="border: 1px solid black; border-collapse: collapse;"> ' + text_on_button + '</td>';
+		for(var j = 0; j < PRODUCT_TYPES.length+1; ++j) {
+			text_on_button = buttonText(PRODUCT_TYPES[j-1],i)
+			if (j == 0 && i > 0){
+				output_html += '<td style="border: 1px solid black; border-collapse: collapse;"> ' + i + '</td>';
+			}
+			if (i == 0 && j > 0){
+				output_html += '<td style="border: 1px solid black; border-collapse: collapse;"> ' + PRODUCT_TYPES[j-1] + '</td>';
+			}
+			if (i + j == 0){
+				output_html += '<td style="border: 1px solid black; border-collapse: collapse;"> ' + "_#_" + '</td>';
+			}
+			if (i>0){
+			if (j>0){
+			output_html += '<td onclick="onLButtonPress(event)" oncontextmenu="onRButtonPress(event)" number_of_sticks="' + i + '" product_type="' + PRODUCT_TYPES[j-1] +'" style="border: 1px solid black; border-collapse: collapse;"> ' + text_on_button + '</td>';}}
 	}
 		output_html += "</tr>\n";
 	}
@@ -94,12 +105,12 @@ function rightClickButton(buttonProduct,buttonNumStick){
 
 function makeCSV(){
 	var comma = ",";
-	var outext="Plot, Product type, Number of sticks, Species, Count";
+	var outext="Plot, Species, Product type, Number of sticks, Count";
 	for(a in data){
 		for (b in data[a]){
 			for (c in data[a][b]){
 				for (d in data[a][b][c]){
-					outext += "\n"+a+comma+b+comma+c+comma+d+comma+data[a][b][c][d];
+					outext += "\n"+a+comma+d+comma+b+comma+c+comma+data[a][b][c][d];
 				}
 			}
 		}
