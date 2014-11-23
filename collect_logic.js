@@ -2,12 +2,20 @@
 function onLButtonPress(e) {
 	var clicked = e.target;
 	e.preventDefault();
-	leftClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
+	localStorage.setItem("st",new Date());
 }
 function onRButtonPress(e) {
 	var clicked = e.target;
 	e.preventDefault();
-	rightClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
+	var et = new Date();
+	var st = localStorage.getItem("st");
+	var tdiff = et-st;
+	if(tdiff>70){
+		leftClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
+	}
+	if(tdiff<70){
+		rightClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
+	}
 }
 
 var speciesList = ['AS', 'RO', 'BO', 'SM', 'RM','HM','SM','RP','WP','WS','BS','WO','BH','AB','PB','JP','BW','GA','BA'];
@@ -87,7 +95,7 @@ function generateButtons(){
 			}
 			if (i>0){
 			if (j>0){
-			output_html += '<td onclick="onLButtonPress(event)" oncontextmenu="onRButtonPress(event)" number_of_sticks="' + i + '" product_type="' + PRODUCT_TYPES[j-1] +'" style="border: 1px solid black; border-collapse: collapse;"> ' + text_on_button + '</td>';}}
+			output_html += '<td onmousedown="onLButtonPress(event)" onmouseup="onRButtonPress(event)" number_of_sticks="' + i + '" product_type="' + PRODUCT_TYPES[j-1] +'" style="border: 1px solid black; border-collapse: collapse;"> ' + text_on_button + '</td>';}}
 	}
 		output_html += "</tr>\n";
 	}
