@@ -10,10 +10,10 @@ function onRButtonPress(e) {
 	var et = new Date();
 	var st = localStorage.getItem("st");
 	var tdiff = et-st;
-	if(tdiff>70){
+	if(tdiff<70){
 		leftClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
 	}
-	if(tdiff<70){
+	if(tdiff>70){
 		rightClickButton(clicked.getAttribute('product_type'), clicked.getAttribute('number_of_sticks'));
 	}
 }
